@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Student Performance Tracker{% endblock %}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            color: #333;
+            animation: backgroundAnimation 15s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+    header {
+        background-color: #4a90e2;
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        user-select: none;
+        flex-wrap: wrap;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-evenly;
+        flex-grow: 1;
+        margin-left: 30px;
+        flex-wrap: wrap;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-family: 'Roboto', Arial, sans-serif;
+        color: #fff;
+        user-select: none;
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        /* Remove margin to let flexbox handle spacing */
+        margin: 0 10px 10px 10px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        position: relative;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+    }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #fff;
+            transition: width 0.3s ease;
+            -webkit-transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+            background: #ffd700;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .flash-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-weight: 600;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        form input[type="text"],
+        form input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="number"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+        }
+
+        form button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background-color: #4a90e2;
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #357ABD;
+            box-shadow: 0 6px 16px rgba(53, 122, 189, 0.8);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        tr:hover {
+            background-color: #f1f9ff;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav {
+                margin-left: 0;
+                justify-content: center;
+                width: 100%;
+            }
+
+            nav a {
+                font-size: 1rem;
+                margin: 5px 8px;
+                flex: 1 1 auto;
+                text-align: center;
+                white-space: normal;
+                padding: 8px 0;
+            }
+
+            main {
+                margin: 15px 10px;
+                padding: 20px 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            form label {
+                font-size: 1rem;
+            }
+
+            form input[type="text"],
+            form input[type="number"] {
+                font-size: 0.9rem;
+                padding: 10px 12px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            form button {
+                font-size: 1rem;
+                padding: 10px 20px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            table {
+                font-size: 0.9rem;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header>
+       
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('add_student') }}">Add Student</a>
+            <a href="{{ url_for('add_grades') }}">Add Grades</a>
+            <a href="{{ url_for('view_student') }}">View Student</a>
+            <a href="{{ url_for('class_summary') }}">Class Summary</a>
+            <a href="{{ url_for('manage_subjects') }}">Manage Subjects</a>
+            <a href="{{ url_for('export_data') }}">Export Data</a>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

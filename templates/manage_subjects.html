@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Subjects{% endblock %}
+
+{% block content %}
+<h2>Manage Subjects</h2>
+
+<form method="POST" action="{{ url_for('manage_subjects') }}">
+    <label for="new_subject">Add New Subject:</label>
+    <input type="text" id="new_subject" name="new_subject" placeholder="Enter new subject name" required />
+    <button type="submit" name="add_subject">Add Subject</button>
+</form>
+
+<h3>Existing Subjects</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('manage_subjects') }}" onsubmit="return confirm('Are you sure you want to delete this subject? This will also delete all related grades.');">
+                    <input type="hidden" name="delete_subject" value="{{ subject }}" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

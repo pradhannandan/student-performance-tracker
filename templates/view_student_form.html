@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>View Student Details</h1>
+    <form method="POST" action="{{ url_for('view_student') }}">
+        <label for="roll_number">Roll Number:</label>
+        <input type="text" id="roll_number" name="roll_number" required>
+        <input type="submit" value="View Details" style="padding: 12px 25px; background-color: #4a90e2; border: none; color: white; font-weight: 700; font-size: 1.1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6); transition: background-color 0.3s ease, box-shadow 0.3s ease;">
+    </form>
+{% endblock %}

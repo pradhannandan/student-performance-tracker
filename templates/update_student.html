@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Update Student{% endblock %}
+
+{% block content %}
+<h2>Update Student Details</h2>
+
+<form method="POST" action="{{ url_for('update_student', roll_number=student.roll_number) }}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ student.name }}" required />
+
+    <label for="roll_number">Roll Number:</label>
+    <input type="text" id="roll_number" name="roll_number" value="{{ student.roll_number }}" required />
+
+    <button type="submit">Update Student</button>
+</form>
+{% endblock %}

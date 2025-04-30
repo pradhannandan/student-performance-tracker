@@ -1,0 +1,63 @@
+Student Performance Tracker - User Guide
+---------------------------------------
+
+Welcome to the Student Performance Tracker web application. This guide will help you explore and use the features available through the web interface.
+
+Main Features and Navigation:
+
+1. Home Page (/)
+   - The landing page of the application.
+   - Provides navigation links to other features.
+
+2. Add Student (/add_student)
+   - Use this page to add a new student to the system.
+   - Enter the student's name and a unique roll number.
+   - Submit the form to save the student.
+
+3. Update Student (/update_student/<roll_number>)
+   - Update the details of an existing student.
+   - Change the student's name or roll number.
+   - Access this page by selecting a student from the view or list pages.
+
+4. Add Grades (/add_grades)
+   - Add or update grades for a student.
+   - Select the student by roll number.
+   - Enter grades for each subject.
+   - Grades must be integers between 0 and 100.
+
+5. View Student Details (/view_student)
+   - Search for a student by roll number.
+   - View the student's details, grades, and average grade.
+
+6. Update Grade (/update_grade/<roll_number>/<subject>)
+   - Update the grade for a specific subject for a student.
+
+7. Manage Subjects (/manage_subjects)
+   - Add new subjects to the system.
+   - Rename or delete existing subjects.
+
+8. Update Student Subject (/update_student_subject/<roll_number>/<subject>)
+   - Add a new subject for a student or update existing subjects.
+
+9. Delete Student Subject (/delete_student_subject/<roll_number>/<subject>)
+   - Remove a subject and its grade from a student's record.
+
+10. Delete Student (/delete_student/<roll_number>)
+    - Delete a student and all associated grades.
+
+11. Class Summary (/class_summary)
+    - View average grades per subject.
+    - View average grades per student.
+    - Identify toppers overall and per subject.
+
+12. Export Data (/export_data)
+    - Export all student data to a file named `student_data_export.txt` in the project directory.
+    - Access this route via your browser or API client to generate the export file.
+
+Usage Tips:
+- Use the navigation links on each page to move between features.
+- Ensure roll numbers are unique when adding or updating students.
+- Grades must be integers between 0 and 100.
+- Use the export data feature to back up or analyze student data externally.
+
+This guide helps you effectively use the Student Performance Tracker web application.

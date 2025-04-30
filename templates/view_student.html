@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}View Student{% endblock %}
+
+{% block content %}
+<h2>View Student Details</h2>
+
+<form method="POST" action="{{ url_for('view_student') }}">
+    <label for="roll_number">Roll Number:</label>
+    <input type="text" id="roll_number" name="roll_number" required />
+    <button type="submit">View</button>
+</form>
+
+{% if student %}
+<h3>Student Information</h3>
+<p><strong>Name:</strong> {{ student.name }}</p>
+<p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+
+<a href="{{ url_for('update_student', roll_number=student.roll_number) }}" class="btn-primary action-button">
+    Update Student Details
+</a>
+
+<form method="POST" action="{{ url_for('delete_student', roll_number=student.roll_number) }}" onsubmit="return confirm('Are you sure you want to delete this student?');" style="display:inline-block; margin-top:10px;">
+    <button type="submit" class="btn-danger action-button">
+        Delete Student
+    </button>
+</form>
+
+<h3>Grades</h3>
+<table class="responsive-table">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Grade</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for subject, grade in grades.items() %}
+    <tr>
+        <td>{{ subject }}</td>
+        <td>{{ grade if grade is not none else 'N/A' }}</td>
+        <td>
+            <a href="{{ url_for('update_grade', roll_number=student.roll_number, subject=subject) }}" class="btn-primary action-button small-button" style="margin-right: 6px;">Update Grade</a>
+            <a href="{{ url_for('update_student_subject', roll_number=student.roll_number, old_subject=subject) }}" class="btn-primary action-button small-button">Update Subject</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if average is not none %}
+<p><strong>Average Grade:</strong> {{ average|round(2) }}</p>
+{% endif %}
+
+{% else %}
+<p>No student data to display.</p>
+{% endif %}
+{% endblock %}
+
+{% block head %}
+<style>
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: #4a90e2;
+    text-align: center;
+}
+
+.action-button:hover {
+    background-color: #357ABD;
+    box-shadow: 0 6px 16px rgba(53, 122, 189, 0.8);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.6);
+}
+
+.btn-danger:hover {
+    background-color: #b02a37;
+    box-shadow: 0 6px 16px rgba(176, 42, 55, 0.8);
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.responsive-table th, .responsive-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.responsive-table th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.responsive-table tr:hover {
+    background-color: #f1f9ff;
+    transition: background-color 0.3s ease;
+}
+
+.small-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .action-button {
+        padding: 8px 15px;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .small-button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+</style>
+{% endblock %}

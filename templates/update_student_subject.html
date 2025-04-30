@@ -1,0 +1,119 @@
+<style>
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-box label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.form-box input[type="text"] {
+  padding: 12px 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-box input[type="text"]:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.update-btn, .delete-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 140px;
+  user-select: none;
+}
+
+.update-btn {
+  background-color: #0078d7;
+  color: white;
+  padding:3px;
+}
+
+.update-btn:hover {
+  background-color: #005a9e;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+  color: white;
+  padding:1px;
+}
+
+.delete-btn:hover {
+  background-color: #b52b27;
+}
+
+.back-link {
+  display: block;
+  width: fit-content;
+  margin: 32px auto 0;
+  padding: 12px 28px;
+  background-color: #0078d7;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #005a9e;
+}
+</style>
+<h2>Update Subject for {{ student.name }} (Roll Number: {{ student.roll_number }})</h2>
+
+<div class="form-container">
+  <form method="POST" class="form-box" action="{{ url_for('update_student_subject', roll_number=student.roll_number, old_subject=old_subject|urlencode) }}">
+    <label for="new_subject">New Subject Name:</label>
+    <input type="text" id="new_subject" name="new_subject" required placeholder="Enter new subject name">
+
+    <div class="button-row">
+      <button type="submit" class="update-btn">Update Subject</button>
+    </div>
+  </form>
+
+  <div class="button-row">
+    <form method="POST" action="{{ url_for('delete_student_subject', roll_number=student.roll_number, subject=old_subject|urlencode) }}" onsubmit="return confirm('Are you sure you want to delete the subject {{ old_subject }} for this student?');">
+      <button type="submit" class="delete-btn">Delete Subject</button>
+    </form>
+  </div>
+</div>
+
+<p><a href="{{ url_for('view_student') }}" class="back-link">Back to View Student</a></p>

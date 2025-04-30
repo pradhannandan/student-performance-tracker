@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Add Student{% endblock %}
+
+{% block content %}
+<h2>Add New Student</h2>
+
+<form method="POST" action="{{ url_for('add_student') }}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter student name" required />
+
+    <label for="roll_number">Roll Number:</label>
+    <input type="text" id="roll_number" name="roll_number" placeholder="Enter unique roll number" required />
+
+    <button type="submit">Add Student</button>
+</form>
+{% endblock %}

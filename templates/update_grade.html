@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Update Grade{% endblock %}
+
+{% block content %}
+<h2>Update Grade for {{ student.name }} (Roll Number: {{ student.roll_number }})</h2>
+<p>Subject: <strong>{{ subject }}</strong></p>
+
+<form method="POST">
+    <label for="grade">Grade (0-100):</label>
+    <input type="number" id="grade" name="grade" min="0" max="100" value="{{ current_grade if current_grade is not none else '' }}" required>
+    <button type="submit" style="padding: 12px 25px; background-color: #4a90e2; border: none; color: white; font-weight: 700; font-size: 1.1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6); transition: background-color 0.3s ease, box-shadow 0.3s ease;">Update Grade</button>
+</form>
+
+<p><a href="{{ url_for('view_student') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #4a90e2; color: white; border-radius: 8px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6); transition: background-color 0.3s ease, box-shadow 0.3s ease;">Back to View Student</a></p>
+{% endblock %}

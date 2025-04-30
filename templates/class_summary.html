@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Class Summary{% endblock %}
+
+{% block content %}
+<h2>Class Summary</h2>
+
+<h3>Average Marks per Subject</h3>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Subject</th>
+        <th>Average Grade</th>
+        <th>Topper</th>
+        <th>Topper Roll Number</th>
+        <th>Topper Grade</th>
+    </tr>
+    {% for subject, avg in avg_per_subject.items() %}
+    <tr>
+        <td>{{ subject }}</td>
+        <td>{{ avg }}</td>
+        {% if subject_toppers[subject] %}
+        <td>{{ subject_toppers[subject].name }}</td>
+        <td>{{ subject_toppers[subject].roll_number }}</td>
+        <td>{{ subject_toppers[subject].grade }}</td>
+        {% else %}
+        <td colspan="3">No data</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Student Rankings</h3>
+{% if topper %}
+<p><strong>Topper:</strong> {{ topper.name }} (Roll Number: {{ topper.roll_number }}) with average grade {{ topper.avg_grade|round(2) }}</p>
+{% else %}
+<p>No student data available.</p>
+{% endif %}
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Rank</th>
+        <th>Roll Number</th>
+        <th>Name</th>
+        <th>Average Grade</th>
+    </tr>
+    {% for student in student_averages %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ student.roll_number }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.avg_grade|round(2) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
